@@ -11,11 +11,11 @@
 <body class="container">
     <h1 class="display-4 text-primary mb-4">{{title}}</h1>
     <p class="h5　mt-4">{{msg}}</p>
-    <form action="{% url 'form' %}" method="post">
+    <form action="{% url 'form1' %}" method="post">
         {% csrf_token %}
         <div class="form-group">
             <label for="msg">message: </label>
-            <input id="msg" type="text" class="form-control" name="msg"> 
+            <input id="msg_1" type="text" class="form-control" name="msg"> 
         </div>
         <input class="btn btn-primary" type="submit" value="click">
 
