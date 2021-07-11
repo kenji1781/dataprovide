@@ -81,18 +81,44 @@ DATABASES = {
     }
 }
 """
-
-
 DATABASES = {
     'default':{
         'ENGINE':'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER':'mishimakenji',
-        'PASSWORD':'mishima0273',
+        'NAME': 'main_app',
+        'USER':'username',
+        'PASSWORD':'PASSWORD',
         'HOST':'localhost',
         'PORT':'5432',
     }
 }
+"""
+DATABASES = {
+'default':{
+'ENGINE':'django.db.backends.postgresql_psycopg2',
+'NAME': 'main_app',
+'USER':os.environ.get('username'),
+'PASSWORD':os.environ.get('PASSWORD'),
+'HOST':'',
+'PORT':'',
+}
+}
+"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
