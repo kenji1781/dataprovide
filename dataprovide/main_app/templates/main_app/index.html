@@ -3,13 +3,33 @@
 <head>
     <meta charset="utf-8">
     <title>{{title}}</title>
-
+    <link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"\
+     crossorigin = "anonymous">
 </head>
 <!-- ｛｛ ｝ ｝ で書かれた変数はviewsより読み出される-->
 <!-- ｛％ url *** ％｝ はurls.pyのurlpatternsに書かれている[name=***]に紐づく -->
-<body>
-    <h1>{{title}}</h1>
-    <p>{{msg}}</p>    
-    <p><a href="{% url goto %}">{{goto}}</a></p>
+<body class="container">
+    <h1 class="display-4 text-primary">{{title}}</h1>
+    <p class="h5 mt-4">{{msg}}</p>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>MACHINE NAME</th>
+            <th>UNIT No.</th>
+            <th>SHIP DATE</th>
+        </tr>
+    <!--  データベースで読み出した変数dataをitemに転送しデータ分forで回す-->
+    {% for item in data %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.machine_name }}</td>
+            <td>{{ item.unit_no }}</td>
+            <td>{{ item.ship_date }}</td>
+        </tr>
+    
+    
+    {% endfor %}
+
+    </table>
 </body>
 </html>

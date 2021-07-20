@@ -6,5 +6,5 @@ path('',views.index,name='index'),でプロジェクトurls.py側にて設定さ
 """
 urlpatterns = [
     path('',views.index,name='index'),
-    path('next',views.next,name='next'),
+    #path('next',views.next,name='next'),
 ]
