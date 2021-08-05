@@ -22,7 +22,7 @@ def index(request):
         params['form'] = main_appForm(request.POST)
     else:
         #データベースを全て読み出す。
-        data = machine_data.objects.all()
+        params['data'] = machine_data.objects.all()
 
 
     #renderの罤２引数にてどのhtmlファイルを読み出すか指定している
