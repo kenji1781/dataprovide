@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+</head>
+<body class="container">
+    <nav class="navbar navbar-expand navbar-light bg-light">
+        <ul class="navbar-nav mr-auto">
+<!-- ナビゲーションバーの設定　-->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">TOP</a>
+            </li>
+                
+        </ul>
+    </nav>
+<!-- headerの設定　-->
+    <div>{% block header %}
+
+    {% endblock %}</div>
+<!-- contentの設定　-->
+    <div class="content">{% block content %}
+
+    {% endblock %}</div>
+
+    <hr>
+        <div style="text-align: right;">Produced by K.Mishima 2021</div>
+</body>
+</html>
