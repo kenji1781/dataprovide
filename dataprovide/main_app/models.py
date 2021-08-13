@@ -12,6 +12,7 @@ class machine_data(models.Model):
 	run_time_m = models.IntegerField(default=0)
 	run_time_s = models.IntegerField(default=0)
 	gas_usage = models.IntegerField(default=0)
+	date_y = models.IntegerField(default=0)
 	date_m = models.IntegerField(default=0)
 	date_d = models.IntegerField(default=0)
 
