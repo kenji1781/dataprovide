@@ -7,5 +7,8 @@ path('',views.index,name='index'),でプロジェクトurls.py側にて設定さ
 urlpatterns = [
     path('',views.index,name='index'),
     path('<int:num>',views.index,name='index'),
+    path('find',views.find,name='find'),
+    path('find<int:num>',views.find,name='find'),
+
     #path('excel_export',views.ex_out,name='excel_export'),
 ]
