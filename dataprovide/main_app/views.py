@@ -41,21 +41,22 @@ def find(request, num=1):
         form = main_appForm(request.POST) #入力した内容表示の為
         #**********フォームmachine**********
         m = request.POST['machi']
-        #data = machine_data.objects.filter(machine_name=find)
+        #find = machine_data.objects.filter(machine_name=m)
 
         #**********フォームunit**********
-        #u = request.POST['unit']
-        #data = data.objects.filter(unit_no=find)
+        u = request.POST['unit']
+        #find = find.objects.filter(unit_no=u)
         #**********フォームyear検索**********
-        #y = request.POST['year']
-        #data = data.objects.filter(date_y=find)
+        year = request.POST['year']
+        #find = find.objects.filter(date_y=y)
         #**********フォームmonth検索**********
-        #m = request.POST['month']
-        #data = data.objects.filter(date_m=find)
+        month = request.POST['month']
+        #find = find.objects.filter(date_m=m)
         #**********フォームday検索**********
-        #d = request.POST['day']
-
-        find = machine_data.objects.filter(machine_name=m) #unit_no=u,date_y=y,date_m=m,date_d=d)
+        day = request.POST['day']
+        #find = find.objects.filter(date_d=d)
+        find = machine_data.objects.filter(machine_name=m).filter(unit_no=u).filter(date_y=year).filter(date_m=month).filter(date_d=day)
+        
         #**********ページ制御**********
         
         
