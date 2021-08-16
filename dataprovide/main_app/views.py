@@ -55,8 +55,8 @@ def find(request, num=1):
         #**********フォームday検索**********
         day = request.POST['day']
         #find = find.objects.filter(date_d=d)
-        find = machine_data.objects.filter(machine_name=m).filter(unit_no=u).filter(date_y=year).filter(date_m=month).filter(date_d=day)
-        
+        #find = machine_data.objects.filter(machine_name=m).filter(unit_no=u).filter(date_y=year).filter(date_m=month).filter(date_d=day)
+        find = machine_data.objects.filter(machine_name=m,unit_no=u,date_y=year,date_m=month,date_d=day)
         #**********ページ制御**********
         
         
