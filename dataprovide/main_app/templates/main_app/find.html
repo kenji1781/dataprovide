@@ -8,8 +8,13 @@
     
     <form action="{% url 'find' %}" method="post">
         {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="click">
+        <table>
+            {{ form.as_table }}
+            <tr><td></td><td>
+            <input type="submit" value="click">
+            </td></tr>
+        </table>
+       
     </form>
     <hr>
 {% endblock %}
@@ -19,6 +24,7 @@
             <th>ID</th>
             <th>装置名</th>
             <th>号機</th>
+            <th>コースNo.</th>
             <th>乾燥時間</th>
             <th>運転回数</th>
             <th>運転時間（分）</th>
@@ -34,6 +40,7 @@
             <td>{{ item.id }}</td>
             <td>{{ item.machine_name }}</td>
             <td>{{ item.unit_no }}</td>
+            <td>{{ item.course_no }}</td>
             <td>{{ item.drying_time }}</td>
             <td>{{ item.run_count }}</td>
             <td>{{ item.run_time_m }}</td>

@@ -6,6 +6,7 @@ from django.db import models
 class machine_data(models.Model):
 	machine_name = models.CharField(max_length=16)
 	unit_no = models.IntegerField(default=0)
+	course_no = models.IntegerField(default=0)
 	#ship_date = models.DateField()
 	drying_time = models.IntegerField(default=0)
 	run_count = models.IntegerField(default=0)

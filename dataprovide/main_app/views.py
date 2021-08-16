@@ -46,6 +46,9 @@ def find(request, num=1):
         #**********フォームunit**********
         u = request.POST['unit']
         #find = find.objects.filter(unit_no=u)
+        #**********フォームcourse**********
+        course = request.POST['course']
+        #find = find.objects.filter(unit_no=u)
         #**********フォームyear検索**********
         year = request.POST['year']
         #find = find.objects.filter(date_y=y)
@@ -56,13 +59,13 @@ def find(request, num=1):
         day = request.POST['day']
         #find = find.objects.filter(date_d=d)
         #find = machine_data.objects.filter(machine_name=m).filter(unit_no=u).filter(date_y=year).filter(date_m=month).filter(date_d=day)
-        find = machine_data.objects.filter(machine_name=m,unit_no=u,date_y=year,date_m=month,date_d=day)
+        find = machine_data.objects.filter(machine_name=m,unit_no=u,course_no=course,date_y=year,date_m=month,date_d=day)
         #**********ページ制御**********
         
         
     else:
         form = main_appForm()
-        find = machine_data.objects.all().order_by('machine_name','unit_no','-date_y','date_m','date_d')
+        find = machine_data.objects.all().order_by('machine_name','unit_no','course_no','-date_y','date_m','date_d')
     
     
     paginator = Paginator(find, 7)
