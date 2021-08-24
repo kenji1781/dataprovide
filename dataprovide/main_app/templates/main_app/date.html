@@ -1,22 +1,20 @@
 {% extends 'main_app/layout_copy.html' %}
 {% block title %}DataProvide{% endblock%}
-{% load static %}
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}"/>
- 
+
+{% block header %}
+    <br>
+    <h1 class="display-5 text-light bg-primary d-inline p-3">{{title}}</h1>
+    <p class="h5 mt-4">{{msg|safe}}</p>
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}" />
     <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
     {{ form.media }}
     <script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
-    <script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
- 
-    
-</head>
+    <script type="text/javascript" src="{% static 'admin/js/RelatedObjectLookups.js' %}"></script>
+    <hr>
+{% endblock %}
 {% block content %}
-    {{ form }}
     <table class="table" style="font-size : 12px;">
         <tr>
             <th>ID</th>
