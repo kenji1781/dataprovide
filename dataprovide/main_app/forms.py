@@ -6,7 +6,7 @@ from .models import machine_data
 
 class main_appForm(forms.Form):
     #id = forms.IntegerField(label='ID')
-    machi = forms.CharField(label='機種') #,required=False,widget=forms.TextInput(attrs={'class':'form-control'}))
+    machi = forms.CharField(label='機種')#,required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
     unit = forms.IntegerField(label='号機')
     #course = forms.IntegerField(label='コースNo.')
     #year = forms.IntegerField(label='年')
@@ -40,3 +40,10 @@ class dateForm(forms.ModelForm):
             'date_machine':DateInput(),
         }
         labels = {'date_machine':'日付',}
+
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            for field in self.fields.values():
+                self.field["date_machine"].widget.attrs["class"] = "form-control"
+           

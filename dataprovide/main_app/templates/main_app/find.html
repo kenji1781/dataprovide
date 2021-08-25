@@ -7,14 +7,11 @@
         <br>
         <form action="{% url 'find' %}" method="post">
             {% csrf_token %}
-            <table>
-                <div>
-                {{ form }}
-                </div>
             
-            
-                <input type="submit" value="click">
-            </table>
+            {{ form }}
+            <input type="submit" value="click">
+                
+           
            
         </form>
         <hr>
