@@ -14,7 +14,7 @@ class main_appForm(forms.Form):
     #day = forms.IntegerField(label='日')
     #date_field = forms.DateField(widget=AdminDateWidget())
 
-
+"""
 class dateForm(forms.Form):
     #id = forms.IntegerField(label='ID')
     #machi = forms.CharField(label='機種') #,required=False,widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -23,21 +23,20 @@ class dateForm(forms.Form):
     #year = forms.IntegerField(label='年')
     #month = forms.IntegerField(label='月')
     #day = forms.IntegerField(label='日')
-    date_machine = forms.DateField(widget=AdminDateWidget())
-
-
-
-
-
-
-
-
+    date_machine = forms.DateField(widget=DateInput())
 """
+
+
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class dateForm(forms.ModelForm):
     class Meta:
         model = machine_data
         fields = ['date_machine']
         widgets = {
-            'date_machine':AdminDateWidget(),
+            'date_machine':DateInput(),
         }
-"""
+        labels = {'date_machine':'日付',}
