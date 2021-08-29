@@ -9,6 +9,8 @@ urlpatterns = [
     path('<int:num>',views.index,name='index'),
     path('find',views.find,name='find'),
     path('find<int:num>',views.find,name='find'),
+    path('date',views.date,name='dateset'),
+    path('date<int:num>',views.date,name='dateset'),
 
     #path('excel_export',views.ex_out,name='excel_export'),
 ]
