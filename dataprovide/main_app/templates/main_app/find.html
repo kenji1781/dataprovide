@@ -7,12 +7,8 @@
         <br>
         <form action="{% url 'find' %}" method="post">
             {% csrf_token %}
-            
             {{ form }}
             <input type="submit" value="click">
-                
-           
-           
         </form>
         <hr>
     {% endblock %}
@@ -20,7 +16,6 @@
     
     <table class="table" style="font-size : 12px;">
         <tr>
-            <th>ID</th>
             <th>装置名</th>
             <th>号機</th>
             <th>コースNo.</th>
@@ -29,15 +24,11 @@
             <th>運転時間（分）</th>
             <th>運転時間（秒）</th>
             <th>ガス使用量</th>
-            <th>日付（年）</th>
-            <th>日付（月）</th>
-            <th>日付（日）</th>
             <th>日付</th>
         </tr>
 <!--  データベースで読み出した変数dataをitemに転送しデータ分forで回す-->
     {% for item in data %}
         <tr>
-            <td>{{ item.id }}</td>
             <td>{{ item.machine_name }}</td>
             <td>{{ item.unit_no }}</td>
             <td>{{ item.course_no }}</td>
@@ -46,9 +37,6 @@
             <td>{{ item.run_time_m }}</td>
             <td>{{ item.run_time_s }}</td>
             <td>{{ item.gas_usage }}</td>
-            <td>{{ item.date_y }}</td>
-            <td>{{ item.date_m }}</td>
-            <td>{{ item.date_d }}</td>
             <td>{{ item.date_machine }}</td>
         </tr>
     {% endfor %}
@@ -101,8 +89,4 @@
     </li>
     {% endif %}
 </ul>
-
-
-
-
 {% endblock %}

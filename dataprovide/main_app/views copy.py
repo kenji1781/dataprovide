@@ -4,15 +4,31 @@ from .models import machine_data #データベースモデル
 from .forms import dateForm, main_appForm #フォーム
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger #ページ制御
 import datetime
-from openpyxl import workbook,load_workbook
-
 
 def index(request, num=1):
     find = []
     data = []
    
-    form = main_appForm()
-    find = machine_data.objects.all().order_by('machine_name','unit_no','-date_y','date_m','date_d')
+    if(request.method == 'POST'):
+        form = main_appForm(request.POST) #入力した内容表示の為
+        #**********フォームmachine**********
+        m = request.POST['machi']
+        #**********フォームunit**********
+        u = request.POST['unit']
+        #**********フォームcourse**********
+        #course = request.POST['course']
+        #**********フォームyear検索**********
+        #year = request.POST['year']
+        #**********フォームmonth検索**********
+        #month = request.POST['month']
+        #**********フォームday検索**********
+        #day = request.POST['day']
+        find = machine_data.objects.filter(machine_name=m,unit_no=u)
+        #find = machine_data.objects.filter(machine_name=m,unit_no=u,date_y=year,date_m=month,date_d=day)
+        #**********ページ制御**********
+    else:
+        form = main_appForm()
+        find = machine_data.objects.all().order_by('machine_name','unit_no','-date_y','date_m','date_d')
     paginator = Paginator(find, 7)
     
 
@@ -87,47 +103,7 @@ def find(request, num=1):
         find = machine_data.objects.filter(machine_name=m)\
                                     .filter(unit_no__in=unit_req)\
                                     .order_by('machine_name','unit_no','-date_y','date_m','date_d') #,date_y=year,date_m=month,date_d=day)
-        unit_req = [int(s) for s in unit_req]
-        print(unit_req)
-        n=0
-        for j in find: #データ分回す
-        #for i in unit_req: #号機分回す
-            
-            
-            
-            #for j in find: 
-            for i in unit_req: #設定号機分回す 
-                
-                if i == int(j.unit_no): #号機が同じか？
-                    if n == int(j.unit_no): 
-                        #print(int(i))
-                        m = int(j.drying_time)+h #ユニット№同じ
-                        
-                        
-                    else:
-                        m = int(j.drying_time)
-                    h=m
-                    n=int(j.unit_no)
-                    
-                    print(i)
-                    print(type(i))
-                    print(m)   
-
-                    
-        #**********エクセル制御**********
-                    wb = load_workbook('./test.xlsx')
-                    ws = wb.active
-                    ws["A1"] = k
-                    wb.save('test1.xlsx')
-                else:
-                    k=0
-    
-               
-            
-
-
         #**********ページ制御**********
-    
     else:
         form = main_appForm()
         find = machine_data.objects.all().order_by('machine_name','unit_no','-date_y','date_m','date_d')
