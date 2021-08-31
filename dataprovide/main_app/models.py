@@ -17,10 +17,6 @@ class machine_data(models.Model):
 	date_m = models.IntegerField(default=0,blank=True,null=True)
 	date_d = models.IntegerField(default=0,blank=True,null=True)
 	date_machine = models.DateField(blank=True,null=True)
-<<<<<<< HEAD
-=======
-	
->>>>>>> ab00eea81b86755d2214dd65abd76ce375e54655
 
 	def __str__(self):
 		return '<machine_data:id=' + str(self.id) + ',' + \
