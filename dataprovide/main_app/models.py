@@ -4,8 +4,8 @@ from django.db import models
 
 
 class machine_data(models.Model):
-	machine_name = models.CharField(max_length=16)
-	unit_no = models.CharField(max_length=8)
+	machine_name = models.CharField(max_length=20)
+	unit_no = models.CharField(max_length=80)
 	course_no = models.IntegerField(default=0,blank=True,null=True)
 	#ship_date = models.DateField()
 	drying_time = models.IntegerField(default=0,blank=True,null=True)
