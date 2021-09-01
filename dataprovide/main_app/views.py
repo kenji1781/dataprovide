@@ -9,57 +9,31 @@ from openpyxl import workbook,load_workbook
 
 def index(request, num=1):
     find = []
-    data = []
+    datechk = []
    
-    form = main_appForm()
-    find = machine_data.objects.all().order_by('machine_name','unit_no','-date_y','date_m','date_d')
+    #form = main_appForm()
+    datechk = machine_data.objects.all() #.order_by('machine_name','unit_no','-date_y','date_m','date_d')
+    
+    for chk in datechk:
+        if chk.date_machine == None:
+            year_i  = int(chk.date_y)
+            month_i = int(chk.date_m)
+            day_i = int(chk.date_d)
+            chk.date_machine = datetime.date(year_i,month_i,day_i)
+            chk.save()
+    
+    find = machine_data.objects.all().order_by('-date_machine','machine_name','unit_no','course_no')
+    #find = machine_data.objects.all().order_by('machine_name','unit_no','-date_y','date_m','date_d')
     paginator = Paginator(find, 7)
     
 
     try:
         data = paginator.page(num)
-        for i in data:
-            year  = int(i.date_y)
-            month = int(i.date_m)
-            day = int(i.date_d)
-            date = datetime.date(year,month,day)
-
-            if date != i.date_machine:
-                print(year,month,day)
-                print(date)
-                i.date_machine = date
-                i.save() 
-            
-
     except PageNotAnInteger:
         data = paginator.page(1)
-        for i in data:
-            year  = int(i.date_y)
-            month = int(i.date_m)
-            day = int(i.date_d)
-            date = datetime.date(year,month,day)
-
-            if date != i.date_machine:
-                print(year,month,day)
-                print(date)
-                i.date_machine = date
-                i.save() 
-
-
     except EmptyPage:
         data = paginator.page(1)
-        for i in data:
-            year  = int(i.date_y)
-            month = int(i.date_m)
-            day = int(i.date_d)
-            date = datetime.date(year,month,day)
-
-            if date != i.date_machine:
-                print(year,month,day)
-                print(date)
-                i.date_machine = date
-                i.save() 
-
+        
     params = {
         'title': 'DataProvideSystem',
         'msg':'データプロバイドシステム',
