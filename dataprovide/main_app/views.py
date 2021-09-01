@@ -37,28 +37,30 @@ def index(request, num=1):
     params = {
         'title': 'DataProvideSystem',
         'msg':'データプロバイドシステム',
-        'form': main_appForm(),
+        'form': dateForm(),
         'data': data,
         }
 
     return render(request, 'main_app/index.html', params)
+
 #****************************************************************
 def find(request, num=1):
     find = []
     data = []
    
     if(request.method == 'POST'):
-        form = main_appForm(request.POST) #入力した内容表示の為
-        #**********フォームmachine**********
-        m = request.POST['machi']
-        #**********フォームunit**********
-        u = request.POST['unit']
-        #ユニット№書いた分だけ検索
-        unit_req = u.split()
-
+        #obj = machine_data()
+        #input_data = dateForm(request.POST,instance=obj)
+        m_n = request.POST['machine_name']
+        u_n = request.POST["unit_no"]
+        d_m = request.POST["date_machine"]
+        print(m_n)
+        print(u_n)
+        print(d_m)
+        unit_req = u_n.split() #ユニット№書いた分だけ検索
 
         print(unit_req)
-        find = machine_data.objects.filter(machine_name=m)\
+        find = machine_data.objects.filter(machine_name=m_n)\
                                     .filter(unit_no__in=unit_req)\
                                     .order_by('machine_name','unit_no','-date_y','date_m','date_d') #,date_y=year,date_m=month,date_d=day)
         unit_req = [int(s) for s in unit_req]
@@ -86,7 +88,7 @@ def find(request, num=1):
                     print(i)
                     print(type(i))
                     print(m)   
-
+        """
                     
         #**********エクセル制御**********
                     wb = load_workbook('./test.xlsx')
@@ -95,7 +97,7 @@ def find(request, num=1):
                     wb.save('test1.xlsx')
                 else:
                     k=0
-    
+        """ 
                
             
 
@@ -103,7 +105,7 @@ def find(request, num=1):
         #**********ページ制御**********
     
     else:
-        form = main_appForm()
+        #form = main_appForm()
         find = machine_data.objects.all().order_by('machine_name','unit_no','-date_y','date_m','date_d')
     paginator = Paginator(find, 7)
 

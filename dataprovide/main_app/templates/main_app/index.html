@@ -8,13 +8,9 @@
     <br>
     <form action="{% url 'find' %}" method="post">
         {% csrf_token %}
-        <table>
-            <div>
-            <label>{{ form.machi.label }}   </label>: {{ form.machi }}
-            <label>{{ form.unit.label }}    </label>: {{ form.unit }}
-            </div>
+            {{ form }}
             <input type="submit" value="click">
-        </table>
+        
        
     </form>
     <hr>
