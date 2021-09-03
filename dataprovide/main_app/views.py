@@ -15,14 +15,14 @@ def index(request, num=1):
     datechk = machine_data.objects.all() #.order_by('machine_name','unit_no','-date_y','date_m','date_d')
     
     for chk in datechk:
-        if chk.date_machine == None:
+        if chk.date_ymd == None:
             year_i  = int(chk.date_y)
             month_i = int(chk.date_m)
             day_i = int(chk.date_d)
-            chk.date_machine = datetime.date(year_i,month_i,day_i)
+            chk.date_ymd = datetime.date(year_i,month_i,day_i)
             chk.save()
     
-    find = machine_data.objects.all().order_by('-date_machine','machine_name','unit_no','course_no')
+    find = machine_data.objects.all().order_by('-date_ymd','machine_name','unit_no','course_no')
     #find = machine_data.objects.all().order_by('machine_name','unit_no','-date_y','date_m','date_d')
     paginator = Paginator(find, 7)
     
@@ -117,8 +117,8 @@ def find(request, num=1):
             day = int(i.date_d)
             date = datetime.date(year,month,day)
 
-            if date != i.date_machine:
-                i.date_machine = date
+            if date != i.date_ymd:
+                i.date_ymd = date
                 i.save() 
 
 
@@ -130,8 +130,8 @@ def find(request, num=1):
             day = int(i.date_d)
             date = datetime.date(year,month,day)
 
-            if date != i.date_machine:
-                i.date_machine = date
+            if date != i.date_ymd:
+                i.date_ymd = date
                 i.save() 
 
     except EmptyPage:
@@ -142,8 +142,8 @@ def find(request, num=1):
             day = int(i.date_d)
             date = datetime.date(year,month,day)
 
-            if date != i.date_machine:
-                i.date_machine = date
+            if date != i.date_ymd:
+                i.date_ymd = date
                 i.save() 
     
     params = {
@@ -190,8 +190,8 @@ def date(request, num=1):
             day = int(i.date_d)
             date = datetime.date(year,month,day)
 
-            if date != i.date_machine:
-                i.date_machine = date
+            if date != i.date_ymd:
+                i.date_ymd = date
                 i.save() 
 
 
@@ -203,8 +203,8 @@ def date(request, num=1):
             day = int(i.date_d)
             date = datetime.date(year,month,day)
 
-            if date != i.date_machine:
-                i.date_machine = date
+            if date != i.date_ymd:
+                i.date_ymd = date
                 i.save() 
 
     except EmptyPage:
@@ -215,8 +215,8 @@ def date(request, num=1):
             day = int(i.date_d)
             date = datetime.date(year,month,day)
 
-            if date != i.date_machine:
-                i.date_machine = date
+            if date != i.date_ymd:
+                i.date_ymd = date
                 i.save() 
     
     params = {
