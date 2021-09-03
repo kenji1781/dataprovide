@@ -53,16 +53,30 @@ def find(request, num=1):
         #input_data = dateForm(request.POST,instance=obj)
         m_n = request.POST['machine_name']
         u_n = request.POST["unit_no"]
-        d_m = request.POST["date_machine"]
-        print(m_n)
-        print(u_n)
-        print(d_m)
+        d_m = request.POST["date_ymd"]
+        
         unit_req = u_n.split() #ユニット№書いた分だけ検索
 
-        print(unit_req)
+        d_m = datetime.datetime.strptime(d_m,'%Y-%m-%d')
+        print(d_m)
+        start_date = d_m - datetime.timedelta(days=7)
+        print(start_date)
+
+        d_m = datetime.datetime.date(d_m)
+        start_date = datetime.datetime.date(start_date)
+        d_m = d_m.strftime('%Y-%m-%d')
+        start_date = start_date.strftime('%Y-%m-%d')
+        print(d_m)
+        print(type(d_m))
+        print(start_date)
+        print(type(start_date))
+
         find = machine_data.objects.filter(machine_name=m_n)\
                                     .filter(unit_no__in=unit_req)\
-                                    .order_by('machine_name','unit_no','-date_y','date_m','date_d') #,date_y=year,date_m=month,date_d=day)
+                                    .filter(date_ymd__range=[start_date,d_m])\
+                                    .order_by('-date_ymd','machine_name','unit_no')
+                                   
+                                    #.order_by('-date_ymd','machine_name','unit_no') #,date_y=year,date_m=month,date_d=day)
         unit_req = [int(s) for s in unit_req]
         print(unit_req)
         n=0
@@ -106,46 +120,19 @@ def find(request, num=1):
     
     else:
         #form = main_appForm()
-        find = machine_data.objects.all().order_by('machine_name','unit_no','-date_y','date_m','date_d')
+        find = machine_data.objects.all().order_by('-date_ymd''machine_name','unit_no')
     paginator = Paginator(find, 7)
 
     try:
         data = paginator.page(num)
-        for i in data:
-            year  = int(i.date_y)
-            month = int(i.date_m)
-            day = int(i.date_d)
-            date = datetime.date(year,month,day)
-
-            if date != i.date_ymd:
-                i.date_ymd = date
-                i.save() 
-
+        
 
     except PageNotAnInteger:
         data = paginator.page(1)
-        for i in data:
-            year  = int(i.date_y)
-            month = int(i.date_m)
-            day = int(i.date_d)
-            date = datetime.date(year,month,day)
-
-            if date != i.date_ymd:
-                i.date_ymd = date
-                i.save() 
-
+       
     except EmptyPage:
         data = paginator.page(1)
-        for i in data:
-            year  = int(i.date_y)
-            month = int(i.date_m)
-            day = int(i.date_d)
-            date = datetime.date(year,month,day)
-
-            if date != i.date_ymd:
-                i.date_ymd = date
-                i.save() 
-    
+       
     params = {
         'title': 'DataProvideSystem',
         'msg':'データプロバイドシステム',
