@@ -76,7 +76,8 @@ def find(request, num=1):
                                     .filter(date_ymd__range=[start_date,d_m])\
                                     .order_by('-date_ymd','machine_name','unit_no')
                                    
-                                    #.order_by('-date_ymd','machine_name','unit_no') #,date_y=year,date_m=month,date_d=day)
+        
+                                        
         unit_req = [int(s) for s in unit_req]
         print(unit_req)
         n=0
@@ -112,21 +113,21 @@ def find(request, num=1):
                 else:
                     k=0
         """ 
-               
-            
+              
 
 
         #**********ページ制御**********
     
     else:
         #form = main_appForm()
-        find = machine_data.objects.all().order_by('-date_ymd''machine_name','unit_no')
+        find = machine_data.objects.all().order_by('-date_ymd','machine_name','unit_no')
+    
+    
     paginator = Paginator(find, 7)
 
     try:
         data = paginator.page(num)
-        
-
+    
     except PageNotAnInteger:
         data = paginator.page(1)
        
