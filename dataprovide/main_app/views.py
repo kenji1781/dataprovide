@@ -25,10 +25,10 @@ def index(request, num=1):
     find = machine_data.objects.all().order_by('-date_ymd','machine_name','unit_no','course_no')
     #find = machine_data.objects.all().order_by('machine_name','unit_no','-date_y','date_m','date_d')
     paginator = Paginator(find, 7)
-    
+      
 
     try:
-        data = paginator.page(num)
+        data = paginator.get_page(num)
     except PageNotAnInteger:
         data = paginator.page(1)
     except EmptyPage:
@@ -45,95 +45,92 @@ def index(request, num=1):
 
 #****************************************************************
 def find(request, num=1):
-    find = []
     data = []
-   
-    if(request.method == 'POST'):
-        #obj = machine_data()
-        #input_data = dateForm(request.POST,instance=obj)
-        m_n = request.POST['machine_name']
-        u_n = request.POST["unit_no"]
-        d_m = request.POST["date_ymd"]
+    
+    if(request.method != 'GET'):
+
+        if(request.method == 'POST'):
+            find = []
+            global find_data
+            #obj = machine_data()
+            #input_data = dateForm(request.POST,instance=obj)
+            m_n = request.POST['machine_name']
+            u_n = request.POST["unit_no"]
+            d_m = request.POST["date_ymd"]
+            
+            unit_req = u_n.split() #ユニット№書いた分だけ検索
+
+            d_m = datetime.datetime.strptime(d_m,'%Y-%m-%d')
+       
+            start_date = d_m - datetime.timedelta(days=7)
+       
+            d_m = datetime.datetime.date(d_m)
+            start_date = datetime.datetime.date(start_date)
+            d_m = d_m.strftime('%Y-%m-%d')
+            start_date = start_date.strftime('%Y-%m-%d')
         
-        unit_req = u_n.split() #ユニット№書いた分だけ検索
 
-        d_m = datetime.datetime.strptime(d_m,'%Y-%m-%d')
-        print(d_m)
-        start_date = d_m - datetime.timedelta(days=7)
-        print(start_date)
-
-        d_m = datetime.datetime.date(d_m)
-        start_date = datetime.datetime.date(start_date)
-        d_m = d_m.strftime('%Y-%m-%d')
-        start_date = start_date.strftime('%Y-%m-%d')
-        print(d_m)
-        print(type(d_m))
-        print(start_date)
-        print(type(start_date))
-
-        find = machine_data.objects.filter(machine_name=m_n)\
-                                    .filter(unit_no__in=unit_req)\
-                                    .filter(date_ymd__range=[start_date,d_m])\
-                                    .order_by('-date_ymd','machine_name','unit_no')
-                                   
-        
+            find = machine_data.objects.filter(machine_name=m_n)\
+                                        .filter(unit_no__in=unit_req)\
+                                        .filter(date_ymd__range=[start_date,d_m])\
+                                        .order_by('-date_ymd','machine_name','unit_no')
+                                      
+            find_data = find
                                         
-        unit_req = [int(s) for s in unit_req]
-        print(unit_req)
-        n=0
-        for j in find: #データ分回す
-        #for i in unit_req: #号機分回す
+            unit_req = [int(s) for s in unit_req]
+        
+            n=0
+            for j in find: #データ分回す
+            #for i in unit_req: #号機分回す
             
             
             
-            #for j in find: 
-            for i in unit_req: #設定号機分回す 
+                #for j in find: 
+                for i in unit_req: #設定号機分回す 
                 
-                if i == int(j.unit_no): #号機が同じか？
-                    if n == int(j.unit_no): 
-                        #print(int(i))
-                        m = int(j.drying_time)+h #ユニット№同じ
+                    if i == int(j.unit_no): #号機が同じか？
+                        if n == int(j.unit_no): 
+                            #print(int(i))
+                            m = int(j.drying_time)+h #ユニット№同じ
                         
                         
+                        else:
+                            m = int(j.drying_time)
+                        h=m
+                        n=int(j.unit_no)
+                    
+                        print(i)
+                        print(type(i))
+                        print(m)   
+            
+            
+            
+            """
+                    
+            #**********エクセル制御**********
+                        wb = load_workbook('./test.xlsx')
+                        ws = wb.active
+                        ws["A1"] = k
+                        wb.save('test1.xlsx')
                     else:
-                        m = int(j.drying_time)
-                    h=m
-                    n=int(j.unit_no)
-                    
-                    print(i)
-                    print(type(i))
-                    print(m)   
-        """
-                    
-        #**********エクセル制御**********
-                    wb = load_workbook('./test.xlsx')
-                    ws = wb.active
-                    ws["A1"] = k
-                    wb.save('test1.xlsx')
-                else:
-                    k=0
-        """ 
+                        k=0
+            """ 
               
 
 
-        #**********ページ制御**********
+       
+        #else:
+            #form = main_appForm()
+            #find_data = find
     
-    else:
-        #form = main_appForm()
-        find = machine_data.objects.all().order_by('-date_ymd','machine_name','unit_no')
+     #**********ページ制御**********
     
-    
-    paginator = Paginator(find, 7)
+    paginator = Paginator(find_data, 7)
 
-    try:
-        data = paginator.page(num)
+    data = paginator.get_page(num)
     
-    except PageNotAnInteger:
-        data = paginator.page(1)
-       
-    except EmptyPage:
-        data = paginator.page(1)
-       
+    print(num)
+    
     params = {
         'title': 'DataProvideSystem',
         'msg':'データプロバイドシステム',
