@@ -56,7 +56,7 @@ def find(request, num=1):
             #input_data = dateForm(request.POST,instance=obj)
             m_n = request.POST['machine_name']
             u_n = request.POST["unit_no"]
-            d_m = request.POST["date_ymd"]
+            d_m = request.POST["input_date"]
             
             unit_req = u_n.split() #ユニット№書いた分だけ検索
 
@@ -75,7 +75,7 @@ def find(request, num=1):
                                         .filter(date_ymd__range=[start_date,d_m])\
                                         .order_by('-date_ymd','machine_name','unit_no')
                                       
-            find_data = find
+            find_data = find #グローバル変数にデータを渡す
                                         
             unit_req = [int(s) for s in unit_req]
         

@@ -34,13 +34,13 @@ class DateInput(forms.DateInput):
 class dateForm(forms.ModelForm):
     class Meta:
         model = machine_data
-        fields = ['machine_name','unit_no','date_ymd']
+        fields = ['machine_name','unit_no','input_date']
         widgets = {
-            'date_ymd':DateInput(),
+            'input_date':DateInput(),
         }
         labels = {  'machine_name':'機種',
                     'unit_no':'号機',
-                    'date_ymd':'日付',
+                    'input_date':'日付',
                     }
 
 
@@ -49,5 +49,5 @@ class dateForm(forms.ModelForm):
             for field in self.fields.values():
                 self.field["machine_name"].widget.attrs["class"] = "form-control"
                 self.field["unit_no"].widget.attrs["class"] = "form-control"
-                self.field["date_ymd"].widget.attrs["class"] = "form-control"
+                self.field["input_date"].widget.attrs["class"] = "form-control"
            
