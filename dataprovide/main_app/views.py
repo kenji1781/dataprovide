@@ -4,7 +4,7 @@ from .models import machine_data #データベースモデル
 from .forms import dateForm, main_appForm #フォーム
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger #ページ制御
 import datetime
-from openpyxl import workbook,load_workbook
+from openpyxl import * #workbook,load_workbook
 
 
 def index(request, num=1):
@@ -60,77 +60,185 @@ def find(request, num=1):
             
             unit_req = u_n.split() #ユニット№書いた分だけ検索
 
-            d_m = datetime.datetime.strptime(d_m,'%Y-%m-%d')
-       
-            start_date = d_m - datetime.timedelta(days=7)
-       
+            d_m = datetime.datetime.strptime(d_m,'%Y-%m-%d') #datetime型に変換
+            #****************7日分日付データ保管****************
+            date_6 = d_m - datetime.timedelta(days=6)
+            date_5 = d_m - datetime.timedelta(days=5)
+            date_4 = d_m - datetime.timedelta(days=4)
+            date_3 = d_m - datetime.timedelta(days=3)
+            date_2 = d_m - datetime.timedelta(days=2)
+            date_1 = d_m - datetime.timedelta(days=1)
+            date_0 = d_m
+
+            start_date = date_6 #検索用に変数用意
+            #****************date型に変換****************
             d_m = datetime.datetime.date(d_m)
             start_date = datetime.datetime.date(start_date)
-            d_m = d_m.strftime('%Y-%m-%d')
-            start_date = start_date.strftime('%Y-%m-%d')
-        
+            date_6 = datetime.datetime.date(date_6)
+            date_5 = datetime.datetime.date(date_5)
+            date_4 = datetime.datetime.date(date_4)
+            date_3 = datetime.datetime.date(date_3)
+            date_2 = datetime.datetime.date(date_2)
+            date_1 = datetime.datetime.date(date_1)
+            date_0 = datetime.datetime.date(date_0)
+
+             #****************dateのstr型用意****************
+
+            d_m = d_m.strftime('%Y-%m-%d') #str型に変換
+            start_date = start_date.strftime('%Y-%m-%d') #str型に変換
+            
+
 
             find = machine_data.objects.filter(machine_name=m_n)\
                                         .filter(unit_no__in=unit_req)\
                                         .filter(date_ymd__range=[start_date,d_m])\
-                                        .order_by('-date_ymd','machine_name','unit_no')
+                                        .order_by('machine_name','unit_no','-date_ymd')
                                       
             find_data = find #グローバル変数にデータを渡す
                                         
             unit_req = [int(s) for s in unit_req]
         
-            n=0
+            
+            wb = load_workbook('./DS_4JDC001Format.xlsx')
+            
             for j in find: #データ分回す
-            #for i in unit_req: #号機分回す
-            
-            
-            
-                #for j in find: 
-                for i in unit_req: #設定号機分回す 
-                
-                    if i == int(j.unit_no): #号機が同じか？
-                        if n == int(j.unit_no): 
-                            #print(int(i))
-                            m = int(j.drying_time)+h #ユニット№同じ
+                print(type(j.date_ymd))
+                print(j.date_ymd)
+                for i in unit_req: #設定号機分回す
+                    for sh in wb.sheetnames: #シート名読出
+                        sh_i = int(sh)
+                        if i == sh_i and sh == j.unit_no: #データの号機
+                            
+                            if date_0 == j.date_ymd:
+                                #*********日付書込*********
+                                date_ind = j.date_ymd
+                                date_ind = date_ind.strftime('%Y-%m-%d')
+                                ws = wb[j.unit_no]
+                                ws.cell(5,3).value = date_ind
+                                print(j.course_no)
+                                print(type(j.course_no))
+                                for k in range(16):
+                                    if j.course_no == k:
+                                        r = k+6
+                                        ws.cell(r,2).value = j.drying_time
+                                        ws.cell(r,3).value = j.run_count
+                                        ws.cell(r,4).value = j.run_time_m * 60 + j.run_time_s
+                                        ws.cell(r,5).value = j.gas_usage
+
+                                    
+                            elif date_1 == j.date_ymd:
+                                #*********日付書込*********
+                                date_ind = j.date_ymd
+                                date_ind = date_ind.strftime('%Y-%m-%d')
+                                ws = wb[j.unit_no]
+                                ws.cell(5,6).value = date_ind
+                                print(j.course_no)
+                                print(type(j.course_no))
+                                for k in range(16):
+                                    if j.course_no == k:
+                                        r = k+6
+                                            #ws.cell(r,2).value = j.drying_time
+                                        ws.cell(r,6).value = j.run_count
+                                        ws.cell(r,7).value = j.run_time_m * 60 + j.run_time_s
+                                        ws.cell(r,8).value = j.gas_usage
+                            
+                            elif date_2 == j.date_ymd:
+                                #*********日付書込*********
+                                date_ind = j.date_ymd
+                                date_ind = date_ind.strftime('%Y-%m-%d')
+                                ws = wb[j.unit_no]
+                                ws.cell(5,9).value = date_ind
+                                print(j.course_no)
+                                print(type(j.course_no))
+                                for k in range(16):
+                                    if j.course_no == k:
+                                        r = k+6
+                                            #ws.cell(r,2).value = j.drying_time
+                                        ws.cell(r,9).value = j.run_count
+                                        ws.cell(r,10).value = j.run_time_m * 60 + j.run_time_s
+                                        ws.cell(r,11).value = j.gas_usage
+                                  
+                            elif date_3 == j.date_ymd:
+                                #*********日付書込*********
+                                date_ind = j.date_ymd
+                                date_ind = date_ind.strftime('%Y-%m-%d')
+                                ws = wb[j.unit_no]
+                                ws.cell(5,12).value = date_ind
+                                print(j.course_no)
+                                print(type(j.course_no))
+                                for k in range(16):
+                                    if j.course_no == k:
+                                        r = k+6
+                                            #ws.cell(r,2).value = j.drying_time
+                                        ws.cell(r,12).value = j.run_count
+                                        ws.cell(r,13).value = j.run_time_m * 60 + j.run_time_s
+                                        ws.cell(r,14).value = j.gas_usage    
+                        
+                            elif date_4 == j.date_ymd:
+                                #*********日付書込*********
+                                date_ind = j.date_ymd
+                                date_ind = date_ind.strftime('%Y-%m-%d')
+                                ws = wb[j.unit_no]
+                                ws.cell(5,15).value = date_ind
+                                print(j.course_no)
+                                print(type(j.course_no))
+                                for k in range(16):
+                                    if j.course_no == k:
+                                        r = k+6
+                                            #ws.cell(r,2).value = j.drying_time
+                                        ws.cell(r,15).value = j.run_count
+                                        ws.cell(r,16).value = j.run_time_m * 60 + j.run_time_s
+                                        ws.cell(r,17).value = j.gas_usage    
+                        
+                            elif date_5 == j.date_ymd:
+                                #*********日付書込*********
+                                date_ind = j.date_ymd
+                                date_ind = date_ind.strftime('%Y-%m-%d')
+                                ws = wb[j.unit_no]
+                                ws.cell(5,18).value = date_ind
+                                print(j.course_no)
+                                print(type(j.course_no))
+                                for k in range(16):
+                                    if j.course_no == k:
+                                        r = k+6
+                                            #ws.cell(r,2).value = j.drying_time
+                                        ws.cell(r,18).value = j.run_count
+                                        ws.cell(r,19).value = j.run_time_m * 60 + j.run_time_s
+                                        ws.cell(r,20).value = j.gas_usage    
+                        
+                            elif date_6 == j.date_ymd:
+                                #*********日付書込*********
+                                date_ind = j.date_ymd
+                                date_ind = date_ind.strftime('%Y-%m-%d')
+                                ws = wb[j.unit_no]
+                                ws.cell(5,21).value = date_ind
+                                print(j.course_no)
+                                print(type(j.course_no))
+                                for k in range(16):
+                                    if j.course_no == k:
+                                        r = k+6
+                                            #ws.cell(r,2).value = j.drying_time
+                                        ws.cell(r,21).value = j.run_count
+                                        ws.cell(r,22).value = j.run_time_m * 60 + j.run_time_s
+                                        ws.cell(r,23).value = j.gas_usage
                         
                         
-                        else:
-                            m = int(j.drying_time)
-                        h=m
-                        n=int(j.unit_no)
-                    
-                        print(i)
-                        print(type(i))
-                        print(m)   
+ 
+                        
+                        
+                        #elif i == 102:
             
-            
-            
-            """
-                    
-            #**********エクセル制御**********
-                        wb = load_workbook('./test.xlsx')
-                        ws = wb.active
-                        ws["A1"] = k
-                        wb.save('test1.xlsx')
-                    else:
-                        k=0
-            """ 
-              
+            wb.save('./test1.xlsx')                                  
 
 
-       
-        #else:
-            #form = main_appForm()
-            #find_data = find
+                            
     
      #**********ページ制御**********
     
     paginator = Paginator(find_data, 7)
 
     data = paginator.get_page(num)
-    
-    print(num)
-    
+   
     params = {
         'title': 'DataProvideSystem',
         'msg':'データプロバイドシステム',
