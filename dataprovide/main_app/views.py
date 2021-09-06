@@ -114,7 +114,7 @@ def find(request, num=1):
                                 date_ind = j.date_ymd
                                 date_ind = date_ind.strftime('%Y-%m-%d')
                                 ws = wb[j.unit_no]
-                                ws.cell(5,3).value = date_ind
+                                ws.cell(5,4).value = date_ind
                                 print(j.course_no)
                                 print(type(j.course_no))
                                 for k in range(16):
@@ -131,7 +131,7 @@ def find(request, num=1):
                                 date_ind = j.date_ymd
                                 date_ind = date_ind.strftime('%Y-%m-%d')
                                 ws = wb[j.unit_no]
-                                ws.cell(5,6).value = date_ind
+                                ws.cell(5,7).value = date_ind
                                 print(j.course_no)
                                 print(type(j.course_no))
                                 for k in range(16):
@@ -147,7 +147,7 @@ def find(request, num=1):
                                 date_ind = j.date_ymd
                                 date_ind = date_ind.strftime('%Y-%m-%d')
                                 ws = wb[j.unit_no]
-                                ws.cell(5,9).value = date_ind
+                                ws.cell(5,10).value = date_ind
                                 print(j.course_no)
                                 print(type(j.course_no))
                                 for k in range(16):
@@ -163,7 +163,7 @@ def find(request, num=1):
                                 date_ind = j.date_ymd
                                 date_ind = date_ind.strftime('%Y-%m-%d')
                                 ws = wb[j.unit_no]
-                                ws.cell(5,12).value = date_ind
+                                ws.cell(5,13).value = date_ind
                                 print(j.course_no)
                                 print(type(j.course_no))
                                 for k in range(16):
@@ -179,7 +179,7 @@ def find(request, num=1):
                                 date_ind = j.date_ymd
                                 date_ind = date_ind.strftime('%Y-%m-%d')
                                 ws = wb[j.unit_no]
-                                ws.cell(5,15).value = date_ind
+                                ws.cell(5,16).value = date_ind
                                 print(j.course_no)
                                 print(type(j.course_no))
                                 for k in range(16):
@@ -195,7 +195,7 @@ def find(request, num=1):
                                 date_ind = j.date_ymd
                                 date_ind = date_ind.strftime('%Y-%m-%d')
                                 ws = wb[j.unit_no]
-                                ws.cell(5,18).value = date_ind
+                                ws.cell(5,19).value = date_ind
                                 print(j.course_no)
                                 print(type(j.course_no))
                                 for k in range(16):
@@ -211,7 +211,7 @@ def find(request, num=1):
                                 date_ind = j.date_ymd
                                 date_ind = date_ind.strftime('%Y-%m-%d')
                                 ws = wb[j.unit_no]
-                                ws.cell(5,21).value = date_ind
+                                ws.cell(5,22).value = date_ind
                                 print(j.course_no)
                                 print(type(j.course_no))
                                 for k in range(16):

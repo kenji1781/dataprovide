@@ -20,6 +20,11 @@ class machine_data(models.Model):
 	input_date = models.DateField(blank=False,null=True)
 
 	def __str__(self):
-		return '<machine_data:id=' + str(self.id) + ',' + \
-		self.machine_name + '(' + str(self.unit_no) + ')>'
+		return '<id=' + str(self.id) + ', ' + \
+		self.machine_name + '(' + str(self.unit_no) + '),'\
+			' course_no :' + str(self.course_no) + \
+				'    date : ' + str(self.date_y) + \
+					'/' + str(self.date_m) + \
+						'/' + str(self.date_d) +'>'
+		
 # Create your models here.
